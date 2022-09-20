@@ -1,0 +1,49 @@
+//
+//  ViewController.swift
+//  TrafficLight
+//
+//  Created by leogoba on 16.09.2022.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+    @IBOutlet var redLightView: UIView!
+    @IBOutlet var yellowLightView: UIView!
+    @IBOutlet var greenLightView: UIView!
+    @IBOutlet var buttonLabel: UIButton!
+    
+    private let lightOff: CGFloat = 0.3
+    private let lightOn: CGFloat = 1
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        redLightView.alpha = lightOff
+        yellowLightView.alpha = lightOff
+        greenLightView.alpha = lightOff
+    }
+    
+    override func viewDidLayoutSubviews() {
+        redLightView.layer.cornerRadius = redLightView.frame.height / 2
+        yellowLightView.layer.cornerRadius = redLightView.frame.height / 2
+        greenLightView.layer.cornerRadius = redLightView.frame.height / 2
+        buttonLabel.layer.cornerRadius = buttonLabel.frame.height / 2
+    }
+
+    @IBAction func buttonTapped() {
+        if buttonLabel.titleLabel?.text == "START" {
+            redLightView.alpha = lightOn
+            buttonLabel.setTitle("NEXT", for: .normal)
+        } else if redLightView.alpha == lightOn {
+            redLightView.alpha = lightOff
+            yellowLightView.alpha = lightOn
+        } else if yellowLightView.alpha == lightOn {
+            yellowLightView.alpha = lightOff
+            greenLightView.alpha = lightOn
+        } else {
+            greenLightView.alpha = lightOff
+            redLightView.alpha = lightOn
+        }
+    }
+}
